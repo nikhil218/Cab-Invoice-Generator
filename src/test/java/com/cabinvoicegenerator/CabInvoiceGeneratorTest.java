@@ -27,8 +27,8 @@ CabInvoiceGenerator cabInvoiceGenerator;
 
     @Test
     public void givenMultipleRidesShouldReturnTotalFare() {
-        Ride[] rides = { new Ride(1.0,5),
-                new Ride(0.2,2)};
+        Ride[] rides = { new Ride(1.0,5, CabRide.NORMAL),
+                new Ride(0.2,2, CabRide.NORMAL)};
 
         double totalFare = cabInvoiceGenerator.calculateFare(rides);
         Assertions.assertEquals(20, totalFare, 0.0);
@@ -36,8 +36,8 @@ CabInvoiceGenerator cabInvoiceGenerator;
 
     @Test
     public void givenMultipleRidesShouldReturnTotalRidesTotalFareandAverageFareperRide() {
-        Ride[] rides = { new Ride(1.0,5),
-                new Ride(0.2,2)};
+        Ride[] rides = { new Ride(1.0,5, CabRide.NORMAL),
+                new Ride(0.2,2, CabRide.NORMAL)};
 
         double totalFare = cabInvoiceGenerator.calculateFare(rides);
         int noOfRides = cabInvoiceGenerator.numberOfRides(rides);
@@ -51,13 +51,28 @@ CabInvoiceGenerator cabInvoiceGenerator;
     @Test
     public void givenUserIdShouldReturntheInvoice() {
         String userID = "Nikhil";
-        Ride[] rides = {new Ride (1.0, 5),
-                new Ride (0.2, 2),
-                new Ride (2, 5)};
+        Ride[] rides = {new Ride (1.0, 5, CabRide.NORMAL),
+                new Ride (0.2, 2, CabRide.NORMAL),
+                new Ride (2, 5, CabRide.NORMAL)};
 
         cabInvoiceGenerator.addRides(userID, rides);
         double rideDetails = cabInvoiceGenerator.getRidesDetails(userID);
         int NoOfRides = cabInvoiceGenerator.numberOfRides(rides);
         Assertions.assertEquals(45, rideDetails, 0.0);
+        Assertions.assertEquals(3, NoOfRides);
+    }
+
+    @Test
+    public void givenCategoriesOfRidesShouldReturnInvoice() {
+        String userID = "ABC";
+        Ride[] rides = {new Ride(2.0, 5, CabRide.NORMAL),
+                new Ride(0.1, 1, CabRide.NORMAL),
+                new Ride(2, 2, CabRide.PREMIUM)};
+
+        cabInvoiceGenerator.addRides(userID, rides);
+        double rideDetails = cabInvoiceGenerator.getRidesDetails(userID);
+        int NoOfRides = cabInvoiceGenerator.numberOfRides(rides);
+        Assertions.assertEquals(52, rideDetails, 0.0);
+        Assertions.assertEquals(3, NoOfRides);
     }
 }
