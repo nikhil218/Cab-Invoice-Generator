@@ -47,4 +47,17 @@ CabInvoiceGenerator cabInvoiceGenerator;
         Assertions.assertEquals(2, noOfRides);
         Assertions.assertEquals(10, averageFare,0.0);
     }
+
+    @Test
+    public void givenUserIdShouldReturntheInvoice() {
+        String userID = "Nikhil";
+        Ride[] rides = {new Ride (1.0, 5),
+                new Ride (0.2, 2),
+                new Ride (2, 5)};
+
+        cabInvoiceGenerator.addRides(userID, rides);
+        double rideDetails = cabInvoiceGenerator.getRidesDetails(userID);
+        int NoOfRides = cabInvoiceGenerator.numberOfRides(rides);
+        Assertions.assertEquals(45, rideDetails, 0.0);
+    }
 }
