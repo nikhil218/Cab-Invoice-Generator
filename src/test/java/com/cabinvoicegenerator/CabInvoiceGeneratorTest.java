@@ -33,4 +33,18 @@ CabInvoiceGenerator cabInvoiceGenerator;
         double totalFare = cabInvoiceGenerator.calculateFare(rides);
         Assertions.assertEquals(20, totalFare, 0.0);
     }
+
+    @Test
+    public void givenMultipleRidesShouldReturnTotalRidesTotalFareandAverageFareperRide() {
+        Ride[] rides = { new Ride(1.0,5),
+                new Ride(0.2,2)};
+
+        double totalFare = cabInvoiceGenerator.calculateFare(rides);
+        int noOfRides = cabInvoiceGenerator.numberOfRides(rides);
+        double averageFare = cabInvoiceGenerator.calculateAverageFarePerRide(rides);
+
+        Assertions.assertEquals(20,totalFare,0.0);
+        Assertions.assertEquals(2, noOfRides);
+        Assertions.assertEquals(10, averageFare,0.0);
+    }
 }
